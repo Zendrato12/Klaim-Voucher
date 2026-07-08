@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Spin Voucher — Indo Super Grosir</title>
+<meta name="description" content="Ikuti Spin Voucher Indo Super Grosir dan menangkan voucher belanja digital!">
+<link rel="icon" href="../images/logo-isg.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/theme.css">
+<style>
+  body{background:#fffaf0;}
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--isg-red) 0%, var(--isg-red-dark) 65%);color:#fff;padding-bottom:50px;}
+  .hero-banner{width:100%;max-height:340px;object-fit:cover;display:block;opacity:0.92;}
+  .hero-content{padding:26px 20px 0;text-align:center;}
+  .hero-badge{display:inline-block;background:var(--isg-yellow);color:#5a3900;font-weight:700;font-size:12px;padding:6px 16px;border-radius:999px;margin-bottom:12px;letter-spacing:.5px;}
+  .hero h1{font-size:clamp(24px,5vw,36px);margin:0 0 8px;font-weight:800;}
+  .hero p.sub{opacity:.92;font-size:15px;max-width:520px;margin:0 auto 20px;}
+  .countdown{display:flex;justify-content:center;gap:10px;margin:18px 0 6px;flex-wrap:wrap;}
+  .countdown .box{background:rgba(255,255,255,0.15);border-radius:12px;padding:10px 14px;min-width:64px;backdrop-filter:blur(4px);}
+  .countdown .box b{display:block;font-size:22px;font-weight:800;}
+  .countdown .box span{font-size:10px;opacity:.85;text-transform:uppercase;}
+
+  /* ---------- Section wrapper ---------- */
+  .section{padding:36px 0;}
+  .section-title{text-align:center;margin-bottom:22px;}
+  .section-title h2{font-size:22px;font-weight:700;margin:0 0 6px;color:var(--isg-black);}
+  .section-title p{color:var(--isg-gray-600);font-size:13.5px;margin:0;}
+
+  .card-lift{margin-top:-60px;position:relative;z-index:5;}
+
+  /* ---------- Steps ---------- */
+  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .step-card{text-align:center;padding:20px 12px;}
+  .step-card .icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--isg-yellow),var(--isg-yellow-dark));display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;color:#5a3900;}
+  .step-card h4{margin:0 0 4px;font-size:14px;}
+  .step-card p{margin:0;font-size:12px;color:var(--isg-gray-600);}
+  @media(max-width:768px){.steps-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- Terms accordion ---------- */
+  .terms-box{max-height:220px;overflow-y:auto;font-size:13.5px;line-height:1.7;color:var(--isg-gray-600);padding-right:6px;}
+  .terms-box ol,.terms-box ul{padding-left:20px;}
+
+  /* ---------- Form ---------- */
+  .form-progress{display:flex;justify-content:center;gap:8px;margin-bottom:24px;}
+  .form-progress .dot{width:10px;height:10px;border-radius:50%;background:var(--isg-gray-200);}
+  .form-progress .dot.active{background:var(--isg-red);width:26px;border-radius:6px;transition:.3s;}
+
+  /* ---------- Spin Wheel ---------- */
+  .wheel-stage{display:flex;flex-direction:column;align-items:center;padding:20px 0 10px;}
+  .wheel-wrap{position:relative;width:300px;height:300px;margin:0 auto;}
+  .wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:28px solid var(--isg-red-dark);z-index:10;filter:drop-shadow(0 4px 4px rgba(0,0,0,.25));}
+  .wheel{
+    width:300px;height:300px;border-radius:50%;position:relative;
+    border:10px solid var(--isg-yellow);
+    box-shadow:0 10px 40px rgba(228,3,46,0.3), inset 0 0 0 4px #fff;
+    transition:transform 4.5s cubic-bezier(.17,.89,.32,1.15);
+    background: conic-gradient(
+      var(--isg-red) 0deg 45deg, var(--isg-yellow) 45deg 90deg,
+      var(--isg-red-dark) 90deg 135deg, var(--isg-yellow-dark) 135deg 180deg,
+      var(--isg-red) 180deg 225deg, var(--isg-yellow) 225deg 270deg,
+      var(--isg-red-dark) 270deg 315deg, var(--isg-yellow-dark) 315deg 360deg);
+  }
+  .wheel-seg{
+    position:absolute;top:50%;left:50%;width:120px;text-align:center;
+    transform-origin:0 0;font-weight:700;font-size:12px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);
+  }
+  .wheel-center{
+    position:absolute;top:50%;left:50%;width:64px;height:64px;margin:-32px 0 0 -32px;
+    background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,0.2);z-index:5;
+  }
+  .wheel-center img{width:40px;height:40px;border-radius:50%;}
+  .wheel-glow{position:absolute;inset:-16px;border-radius:50%;background:radial-gradient(circle,rgba(255,198,39,0.5),transparent 70%);z-index:-1;opacity:0;transition:opacity .3s;}
+  .wheel-wrap.spinning .wheel-glow{opacity:1;animation:pulseGlow 1s ease-in-out infinite;}
+  @keyframes pulseGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+
+  .confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9997;}
+
+  /* ---------- Voucher Card ---------- */
+  .voucher-result{display:none;}
+  .voucher-card{
+    background:linear-gradient(135deg,#fff 0%, #FFFCF3 100%);
+    border-radius:20px;overflow:hidden;position:relative;
+    box-shadow:0 20px 50px rgba(228,3,46,0.25);
+    border:2px dashed var(--isg-yellow-dark);
+  }
+  .voucher-head{background:linear-gradient(135deg,var(--isg-red),var(--isg-red-dark));color:#fff;padding:20px 24px;text-align:center;position:relative;}
+  .voucher-head::after{content:'';position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:28px;height:28px;background:#fffaf0;border-radius:50%;}
+  .voucher-head h3{margin:0;font-size:13px;letter-spacing:1px;text-transform:uppercase;opacity:.85;}
+  .voucher-nominal{font-size:38px;font-weight:800;margin:4px 0 0;}
+  .voucher-body{padding:30px 24px 24px;text-align:center;}
+  .voucher-code{
+    font-family:'Courier New',monospace;font-size:20px;font-weight:800;letter-spacing:2px;
+    background:#FFF3D6;color:#8A5A00;padding:10px 18px;border-radius:10px;display:inline-block;margin:10px 0 16px;
+  }
+  .voucher-codes-wrap{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:flex-start;margin:14px 0;}
+  .voucher-codes-wrap canvas, .voucher-codes-wrap img{background:#fff;padding:8px;border-radius:10px;border:1px solid var(--isg-gray-200);}
+  .voucher-meta{text-align:left;font-size:12.5px;color:var(--isg-gray-600);margin-top:16px;border-top:1px dashed var(--isg-gray-200);padding-top:14px;}
+  .voucher-meta div{margin-bottom:6px;}
+  .voucher-meta b{color:var(--isg-black);}
+
+  /* footer */
+  footer{background:var(--isg-black);color:#bbb;padding:28px 0;text-align:center;font-size:12.5px;margin-top:30px;}
+  footer a{color:var(--isg-yellow);}
+
+  .hidden-block{display:none;}
+</style>
+</head>
+<body>
+
+<header class="isg-topbar">
+  <div class="container flex-between">
+    <div class="isg-brand">
+      <img src="../images/logo-isg.png" alt="Logo ISG">
+      <span>Indo Super Grosir<span class="sub">Spin Voucher Digital</span></span>
+    </div>
+    <a href="#faq-section" class="btn btn-sm btn-white" style="display:none" id="help-btn"><i class="fa-solid fa-circle-question"></i></a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <img src="../images/hero-banner.jpg" class="hero-banner" alt="Banner Promo" id="campaign-banner">
+  <div class="hero-content">
+    <span class="hero-badge" id="campaign-badge">🎉 CAMPAIGN AKTIF</span>
+    <h1 id="campaign-title">Spin Voucher Indo Super Grosir</h1>
+    <p class="sub" id="campaign-desc">Belanja hemat, menang hadiah! Ikuti Spin Voucher dan menangkan voucher belanja digital senilai puluhan ribu hingga ratusan ribu rupiah.</p>
+    <div class="countdown" id="countdown-wrap">
+      <div class="box"><b id="cd-days">00</b><span>Hari</span></div>
+      <div class="box"><b id="cd-hours">00</b><span>Jam</span></div>
+      <div class="box"><b id="cd-min">00</b><span>Menit</span></div>
+      <div class="box"><b id="cd-sec">00</b><span>Detik</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- ============ CAMPAIGN NOT FOUND ============ -->
+  <div class="card card-lift hidden-block" id="campaign-error" style="text-align:center;">
+    <i class="fa-solid fa-calendar-xmark" style="font-size:42px;color:var(--isg-gray-400);margin-bottom:12px;"></i>
+    <h2 style="margin:0 0 8px;">Campaign Tidak Ditemukan / Sudah Berakhir</h2>
+    <p style="color:var(--isg-gray-600);font-size:14px;">Link Spin Voucher ini tidak valid, sudah kedaluwarsa, atau campaign belum aktif. Silakan cek kembali link promo dari ISG.</p>
+  </div>
+
+  <div id="main-app" class="hidden-block">
+
+    <!-- ============ STEPS ============ -->
+    <div class="card card-lift">
+      <div class="steps-grid">
+        <div class="step-card"><div class="icon"><i class="fa-solid fa-pen"></i></div><h4>1. Isi Data</h4><p>Lengkapi data diri &amp; no. invoice belanja Anda</p></div>
+        <div class="step-card"><div class="icon"><i class="fa-solid fa-arrows-spin"></i></div><h4>2. Putar Roda</h4><p>Tekan tombol Spin &amp; nantikan hadiahnya</p></div>
+        <div class="step-card"><div class="icon"><i class="fa-solid fa-ticket"></i></div><h4>3. Dapatkan Voucher</h4><p>Voucher digital langsung tampil di layar</p></div>
+        <div class="step-card"><div class="icon"><i class="fa-solid fa-store"></i></div><h4>4. Tukarkan</h4><p>Tunjukkan voucher ke kasir toko ISG terdekat</p></div>
+      </div>
+    </div>
+
+    <!-- ============ TERMS ============ -->
+    <section class="section" id="terms-section">
+      <div class="section-title"><h2><i class="fa-solid fa-file-contract" style="color:var(--isg-red);"></i> Syarat &amp; Ketentuan</h2><p>Mohon dibaca sebelum mengikuti program</p></div>
+      <div class="card terms-box" id="terms-content">Memuat syarat & ketentuan...</div>
+    </section>
+
+    <!-- ============ FORM SECTION ============ -->
+    <section class="section" id="form-section">
+      <div class="section-title"><h2><i class="fa-solid fa-id-card" style="color:var(--isg-red);"></i> Isi Data Diri Anda</h2><p>Data digunakan untuk verifikasi voucher</p></div>
+
+      <div class="card container-narrow" style="max-width:520px;">
+        <form id="claim-form" autocomplete="off">
+          <div class="field">
+            <label>Nama Lengkap *</label>
+            <input type="text" id="f-name" placeholder="Contoh: Budi Santoso" required maxlength="80">
+          </div>
+          <div class="field">
+            <label>Nomor HP / WhatsApp *</label>
+            <input type="tel" id="f-phone" placeholder="08xxxxxxxxxx" required maxlength="15">
+            <div class="error-msg" id="err-phone"></div>
+          </div>
+          <div class="field">
+            <label>Nomor Invoice / Struk Belanja *</label>
+            <input type="text" id="f-invoice" placeholder="Contoh: INV-00123456" required maxlength="40">
+            <div class="error-msg" id="err-invoice"></div>
+          </div>
+          <div class="field">
+            <label>Upload Foto Struk (opsional)</label>
+            <input type="file" id="f-receipt" accept="image/*">
+            <div class="hint">Maks. 5MB. Membantu proses verifikasi jika dibutuhkan.</div>
+          </div>
+          <div class="field checkbox-row">
+            <input type="checkbox" id="f-agree" required>
+            <label for="f-agree" style="margin:0;font-weight:400;">Saya telah membaca dan menyetujui <b>Syarat &amp; Ketentuan</b> program Spin Voucher ini.</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="btn-check">
+            <i class="fa-solid fa-check"></i> Cek &amp; Lanjutkan
+          </button>
+          <div id="form-msg" style="margin-top:12px;font-size:13px;text-align:center;"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ SPIN SECTION ============ -->
+    <section class="section hidden-block" id="spin-section">
+      <div class="section-title"><h2><i class="fa-solid fa-gift" style="color:var(--isg-red);"></i> Saatnya Putar Voucher!</h2><p>Tekan tombol di bawah untuk memutar roda keberuntungan</p></div>
+      <div class="card wheel-stage">
+        <div class="wheel-wrap" id="wheel-wrap">
+          <div class="wheel-glow"></div>
+          <div class="wheel-pointer"></div>
+          <div class="wheel" id="wheel"></div>
+          <div class="wheel-center"><img src="../images/logo-isg.png" alt="ISG"></div>
+        </div>
+        <button class="btn btn-gold" style="margin-top:26px;font-size:17px;padding:16px 40px;" id="btn-spin">
+          <i class="fa-solid fa-arrows-spin"></i> PUTAR SEKARANG
+        </button>
+        <p style="font-size:12px;color:var(--isg-gray-400);margin-top:10px;">Satu nomor HP hanya dapat melakukan 1x spin per campaign</p>
+      </div>
+    </section>
+
+    <!-- ============ RESULT SECTION ============ -->
+    <section class="section voucher-result" id="result-section">
+      <div class="section-title"><h2><i class="fa-solid fa-party-horn" style="color:var(--isg-red);"></i> Selamat! Voucher Anda</h2><p>Simpan atau screenshot voucher ini untuk ditukarkan di kasir</p></div>
+      <div class="container-narrow" style="max-width:440px;">
+        <div class="voucher-card" id="voucher-card-el">
+          <div class="voucher-head">
+            <h3>Voucher Belanja Digital</h3>
+            <div class="voucher-nominal" id="v-nominal">Rp 0</div>
+          </div>
+          <div class="voucher-body">
+            <div style="font-size:13px;color:var(--isg-gray-600);">Kode Voucher</div>
+            <div class="voucher-code" id="v-code">-</div>
+            <div class="voucher-codes-wrap">
+              <div id="v-qrcode"></div>
+              <svg id="v-barcode"></svg>
+            </div>
+            <div class="voucher-meta">
+              <div><b>Nama:</b> <span id="v-name">-</span></div>
+              <div><b>Campaign:</b> <span id="v-campaign">-</span></div>
+              <div><b>Berlaku hingga:</b> <span id="v-valid">-</span></div>
+              <div><b>Syarat:</b> <span id="v-terms">-</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-12" style="margin-top:20px;">
+          <button class="btn btn-primary btn-block" id="btn-download"><i class="fa-solid fa-download"></i> Download Voucher</button>
+        </div>
+        <p style="text-align:center;font-size:12.5px;color:var(--isg-gray-400);margin-top:14px;">
+          Tunjukkan voucher ini (QR/Barcode) ke kasir ISG untuk penukaran.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <img src="../images/logo-isg.png" alt="ISG" style="width:32px;border-radius:6px;margin:0 auto 10px;">
+    <p>&copy; 2026 Indo Super Grosir. Semua hak dilindungi. Program Spin Voucher berlaku sesuai syarat & ketentuan yang berlaku.</p>
+    <p>Butuh bantuan? Hubungi CS toko ISG terdekat.</p>
+  </div>
+</footer>
+
+<canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/api.js"></script>
+<script src="js/spin.js"></script>
+</body>
+</html>
